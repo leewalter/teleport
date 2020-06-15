@@ -484,15 +484,7 @@ func onLogin(cf *CLIConf) {
 	}
 
 	if makeIdentityFile {
-		if err := setupNoninteractiveClient(tc, key); err != nil {
-			utils.FatalError(err)
-		}
-		authorities, err := tc.GetTrustedCA(cf.Context, key.ClusterName)
-		if err != nil {
-			utils.FatalError(err)
-		}
-
-		filesWritten, err := identityfile.Write(cf.IdentityFileOut, key, cf.IdentityFormat, authorities, tc.KubeClusterAddr())
+		filesWritten, err := identityfile.Write(cf.IdentityFileOut, key, cf.IdentityFormat, tc.KubeClusterAddr())
 		if err != nil {
 			utils.FatalError(err)
 		}
